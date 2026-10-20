@@ -333,3 +333,69 @@ $$(".modal").forEach((modal) => {
   modal.addEventListener("click", (event) => { if (event.target === modal) modal.close(); });
   modal.addEventListener("close", () => { if (modal === videoModal) { modalVideo.pause(); modalVideo.removeAttribute("src"); modalVideo.load(); } });
 });
+
+// A small on-page FAQ assistant; project-specific questions continue in WhatsApp.
+const chatPanel = $("#chat-panel");
+const chatLauncher = $("#chat-launcher");
+const chatMessages = $("#chat-messages");
+const chatInput = $("#chat-input");
+const chatForm = $("#chat-form");
+const chatWhatsApp = $("[data-chat-whatsapp]");
+const chatNumber = SITE_CONFIG.whatsappNumber.replace(/\D/g, "");
+if (chatNumber) {
+  chatWhatsApp.href = `https://wa.me/${chatNumber}?text=${encodeURIComponent("Hi AI Nish! I have a question about a video project.")}`;
+}
+function setChatOpen(open) {
+  chatPanel.hidden = !open;
+  chatLauncher.setAttribute("aria-expanded", String(open));
+  if (open) chatInput.focus();
+}
+function addChatMessage(text, sender) {
+  const message = document.createElement("p");
+  message.className = `chat-message ${sender === "user" ? "chat-user" : "chat-bot"}`;
+  message.textContent = text;
+  chatMessages.append(message);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function answerChat(question) {
+  const text = question.toLowerCase();
+  if (/package|price|cost|rate|budget/.test(text)) {
+    return "Starting prices:\n• 30-second edit — ₹4,999\n• 60-second edit — ₹9,999\n• Pack of 5 — ₹19,999\nFinal scope and pricing are confirmed in writing after we discuss your brief.";
+  }
+  if (/delivery|turnaround|how long|when|urgent|timeline/.test(text)) {
+    return "Most projects are delivered in 3–4 days after I receive the brief and all assets. The exact timing depends on the project scope.";
+  }
+  if (/start|book|project|contact|hire|brief/.test(text)) {
+    return "Great! Tell Nish what you’re making, your timeline, and your budget. Use the WhatsApp link below to share your brief and discuss the agreement.";
+  }
+  if (/review|feedback|testimonial/.test(text)) {
+    return "Thanks for sharing feedback! Tap the WhatsApp link below and Nish can help add your note to the portfolio.";
+  }
+  if (/service|make|create|edit|video|reel|ad|short/.test(text)) {
+    return "Nish creates short-form Reels, product ads, brand stories, and creator videos. Share your idea on WhatsApp and she’ll recommend a format.";
+  }
+  return "I can answer common questions about packages and timing. For a custom answer, send your question to Nish on WhatsApp below.";
+}
+chatLauncher.addEventListener("click", () => setChatOpen(chatPanel.hidden));
+$("#chat-close").addEventListener("click", () => setChatOpen(false));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !chatPanel.hidden) setChatOpen(false);
+});
+chatForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const question = chatInput.value.trim();
+  if (!question) return;
+  addChatMessage(question, "user");
+  chatInput.value = "";
+  addChatMessage(answerChat(question), "bot");
+});
+const commonQuestions = {
+  packages: "What are your video packages?",
+  delivery: "What is your delivery time?",
+  start: "How can I start a project?"
+};
+$$('[data-chat-question]').forEach((button) => button.addEventListener("click", () => {
+  const question = commonQuestions[button.dataset.chatQuestion];
+  addChatMessage(question, "user");
+  addChatMessage(answerChat(question), "bot");
+}));
