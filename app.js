@@ -360,7 +360,7 @@ function addChatMessage(text, sender) {
 function answerChat(question) {
   const text = question.toLowerCase();
   if (/package|price|cost|rate|budget/.test(text)) {
-    return "Starting prices:\n• 30-second edit — ₹4,999\n• 60-second edit — ₹9,999\n• Pack of 5 — ₹19,999\nFinal scope and pricing are confirmed in writing after we discuss your brief.";
+    return "Monthly plans include 8 Starter, 14 Pro, or 20 Premium videos. Every plan includes ideation, creative direction, hooks, scripts, storyboards, AI-generated images and video, AI voiceover, editing, captions, sound design, and social-ready exports. Videos run 15 seconds to 1 minute. Contact Nish for a custom quote based on your brief.";
   }
   if (/delivery|turnaround|how long|when|urgent|timeline/.test(text)) {
     return "Most projects are delivered in 3–4 days after I receive the brief and all assets. The exact timing depends on the project scope.";
