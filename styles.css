@@ -41,3 +41,6 @@
 .chat-whatsapp{display:block;border-top:1px solid #dedfd6;padding:12px 18px 14px;text-align:center;color:#586b32;font:9px var(--mono);letter-spacing:.02em}
 .chat-whatsapp:hover{text-decoration:underline}
 @media(max-width:650px){.hero-copy{min-height:0;padding-bottom:0}.hero-actions{flex-wrap:wrap;row-gap:16px}.chat-widget{right:14px;bottom:14px}.chat-panel{bottom:66px;max-height:min(520px,calc(100dvh - 92px))}}
+
+/* Open portfolio films in a true 9:16 portrait frame. */
+#video-modal{width:min(760px,calc(100% - 32px));max-height:90vh;padding:0;overflow:auto}#video-modal[open]{display:flex;align-items:center}#video-modal .video-frame{flex:0 0 auto;width:auto;height:min(78vh,720px);aspect-ratio:9/16}#video-modal .modal-caption{flex:1;min-width:0;padding:30px}#video-modal .modal-caption p{line-height:1.7}@media(max-width:650px){#video-modal{width:min(440px,calc(100% - 24px));max-height:94dvh}#video-modal[open]{flex-direction:column;align-items:center}#video-modal .video-frame{width:min(64vw,340px);height:auto;max-height:62dvh;aspect-ratio:9/16}#video-modal .modal-caption{align-self:stretch;padding:14px 20px 18px}#video-modal .modal-caption h3{font-size:20px;margin:7px 0}}
