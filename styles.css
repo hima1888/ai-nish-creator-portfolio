@@ -44,3 +44,6 @@
 
 /* Open portfolio films in a true 9:16 portrait frame. */
 #video-modal{width:min(760px,calc(100% - 32px));max-height:90vh;padding:0;overflow:auto}#video-modal[open]{display:flex;align-items:center}#video-modal .video-frame{flex:0 0 auto;width:auto;height:min(78vh,720px);aspect-ratio:9/16}#video-modal .modal-caption{flex:1;min-width:0;padding:30px}#video-modal .modal-caption p{line-height:1.7}@media(max-width:650px){#video-modal{width:min(440px,calc(100% - 24px));max-height:94dvh}#video-modal[open]{flex-direction:column;align-items:center}#video-modal .video-frame{width:min(64vw,340px);height:auto;max-height:62dvh;aspect-ratio:9/16}#video-modal .modal-caption{align-self:stretch;padding:14px 20px 18px}#video-modal .modal-caption h3{font-size:20px;margin:7px 0}}
+/* Preserve a true 9:16 frame on short mobile viewports. */
+@media(max-width:650px){#video-modal .video-frame{flex:0 0 auto;width:min(80vw,340px,calc(70dvh * 9 / 16));height:auto;max-height:none;aspect-ratio:9/16}}
+ 
